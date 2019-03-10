@@ -12,7 +12,7 @@ public class Consumer {
 
     @RabbitListener(queues = "#{queue.name}")
     public void listen(String in){
-        String msg = "Nu in het binnenland: Er zijn "+in+" gezien, blijf vooral binnen";
+        String msg = "Nu in het binnenland: "+in;
         producer.send(msg);
     }
 }

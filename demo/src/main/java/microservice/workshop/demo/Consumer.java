@@ -10,11 +10,29 @@ import java.util.List;
 public class Consumer {
 
     @Autowired
-    private List<String> messagesSingleton;
+    private List<String> binnenlandMessagesSingleton;
 
-    @RabbitListener(queues = "#{newsQueue.name}")
-    public void getAllListener(String in){
+    @Autowired
+    private List<String> sportMessagesSingleton;
+
+    @Autowired
+    private List<String> alertMessagesSingleton;
+
+    @RabbitListener(queues = "#{binnenlandQueue.name}")
+    public void binnenlandistener(String in){
         System.out.println("Message: "+in);
-        messagesSingleton.add(in);
+        binnenlandMessagesSingleton.add(in);
+    }
+
+    @RabbitListener(queues = "#{sportQueue.name}")
+    public void sportListener(String in){
+        System.out.println("Message: "+in);
+        sportMessagesSingleton.add(in);
+    }
+
+    @RabbitListener(queues = "#{alertQueue.name}")
+    public void alertListener(String in){
+        System.out.println("Message: "+in);
+        alertMessagesSingleton.add(in);
     }
 }

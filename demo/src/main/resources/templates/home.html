@@ -15,14 +15,5 @@
     <br>
     <input type="submit" value="Post">
 </form>
-
-<table border="1">
-    <tr>
-        <th>Message</th>
-    </tr>
-    <tr th:each="message : ${messages}">
-        <td th:utext="${message}"></td>
-    </tr>
-</table>
 </body>
 </html>

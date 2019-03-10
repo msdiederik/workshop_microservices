@@ -14,16 +14,42 @@ import java.util.List;
 public class AppController {
 
     @Autowired
-    private List<String> messagesSingleton;
+    private List<String> binnenlandMessagesSingleton;
+
+    @Autowired
+    private List<String> sportMessagesSingleton;
+
+    @Autowired
+    private List<String> alertMessagesSingleton;
 
     @Autowired
     private Producer producer;
 
     @GetMapping("/")
     public String home(Model model){
-        model.addAttribute("messages", messagesSingleton);
         model.addAttribute("messageForm", new MessageForm());
         return "home";
+    }
+
+    @GetMapping("/binnenland")
+    public String binnenland(Model model){
+        model.addAttribute("title", "Nieuws in het binnenland");
+        model.addAttribute("messages", binnenlandMessagesSingleton);
+        return "list";
+    }
+
+    @GetMapping("/sport")
+    public String sport(Model model){
+        model.addAttribute("title", "Sportnieuws");
+        model.addAttribute("messages", sportMessagesSingleton);
+        return "list";
+    }
+
+    @GetMapping("/alert")
+    public String alert(Model model){
+        model.addAttribute("title", "Nieuws updates");
+        model.addAttribute("messages", alertMessagesSingleton);
+        return "list";
     }
 
     @PostMapping("/post")

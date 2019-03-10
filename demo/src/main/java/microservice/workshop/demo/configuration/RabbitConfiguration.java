@@ -15,11 +15,23 @@ public class RabbitConfiguration {
     @Value("${topic.exchange}")
     private String exchange;
 
-    @Value("${queue.name}")
-    private String queueName;
+    @Value("${binnenlandQueue.name}")
+    private String binnenlandQueueName;
 
-    @Value("${queue.routingKey}")
-    private String routingKey;
+    @Value("${binnenlandQueue.routingKey}")
+    private String binnenlandRoutingKey;
+
+    @Value("${sportQueue.name}")
+    private String sportQueueName;
+
+    @Value("${sportQueue.routingKey}")
+    private String sportRoutingKey;
+
+    @Value("${alertQueue.name}")
+    private String alertQueueName;
+
+    @Value("${alertQueue.routingKey}")
+    private String alertRoutingKey;
 
     @Bean
     public TopicExchange topic(){
@@ -27,18 +39,50 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    public Queue newsQueue(){
-        return new Queue("news");
+    public Queue binnenlandQueue(){
+        return new Queue(binnenlandQueueName);
     }
 
     @Bean
-    public Binding newsBinding(Queue newsQueue, TopicExchange topic){
-        return BindingBuilder.bind(newsQueue).to(topic).with(routingKey);
+    public Binding binnenlandBinding(Queue binnenlandQueue, TopicExchange topic){
+        return BindingBuilder.bind(binnenlandQueue).to(topic).with(binnenlandRoutingKey);
+    }
+
+    @Bean
+    public Queue sportQueue(){
+        return new Queue(sportQueueName);
+    }
+
+    @Bean
+    public Binding sportBinding(Queue sportQueue, TopicExchange topic){
+        return BindingBuilder.bind(sportQueue).to(topic).with(sportRoutingKey);
+    }
+
+    @Bean
+    public Queue alertQueue(){
+        return new Queue(alertQueueName);
+    }
+
+    @Bean
+    public Binding alertBinding(Queue alertQueue, TopicExchange topic){
+        return BindingBuilder.bind(alertQueue).to(topic).with(alertRoutingKey);
     }
 
     @Bean
     @Scope("singleton")
-    public List<String> messagesSingleton(){
+    public List<String> binnenlandMessagesSingleton(){
+        return new ArrayList<>();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public List<String> sportMessagesSingleton(){
+        return new ArrayList<>();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public List<String> alertMessagesSingleton(){
         return new ArrayList<>();
     }
 }
