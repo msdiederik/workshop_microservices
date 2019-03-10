@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Fake news inc.</h1>
+<form th:action="@{/post}" method="post" th:object="${messageForm}">
+    Routing key:
+    <input type="text" th:field="*{routingKey}">
+    <br>
+    Bericht
+    <input type="text" th:field="*{message}">
+    <br>
+    <input type="submit" value="Post">
+</form>
+
+<table border="1">
+    <tr>
+        <th>Message</th>
+    </tr>
+    <tr th:each="message : ${messages}">
+        <td th:utext="${message}"></td>
+    </tr>
+</table>
+</body>
+</html>
